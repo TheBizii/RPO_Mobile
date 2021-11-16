@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/miRestavracije"
+        android:title="Restavracije" />
+
+    <item
+        android:id="@+id/miTrgovine"
+        android:title="Trgovine" />
+
+    <item
+        android:id="@+id/miZgodovina"
+        android:title="Zgodovina" />
+
+    <item
+        android:id="@+id/miDostave"
+        android:title="Dostave" />
+
+    <item
+        android:id="@+id/miPrijava"
+        android:title="Prijava" />
+
+    <item
+        android:id="@+id/miPravila"
+        android:title="Pravila/Pravice" />
+
+    <item
+        android:id="@+id/miKontakti"
+        android:title="Kontakti" />
+
+    <item
+        android:id="@+id/miNastavitve"
+        android:title="Nastavitve" />
+
+</menu>

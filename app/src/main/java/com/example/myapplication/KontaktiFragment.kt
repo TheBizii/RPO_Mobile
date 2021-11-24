@@ -6,5 +6,5 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class SecondFragment : Fragment(R.layout.fragment_second) {
+class KontaktiFragment : Fragment(R.layout.fragment_kontakti) {
 }

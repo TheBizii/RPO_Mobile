@@ -6,8 +6,8 @@
         android:title="Restavracije" />
 
     <item
-        android:id="@+id/miTrgovine"
-        android:title="Trgovine" />
+        android:id="@+id/miVrsteHrane"
+        android:title="Vrste hrane" />
 
     <item
         android:id="@+id/miZgodovina"

@@ -1,13 +1,15 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ListView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_restavracija.*
+import androidx.drawerlayout.widget.DrawerLayout
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,7 +33,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setCurrentFragment(firstFragment)
+        val bundle: Bundle? = intent.extras
+
+        if (bundle != null) {
+            when(bundle.get("nav").toString()){
+                "home" -> setCurrentFragment(firstFragment)
+                "search" -> setCurrentFragment(secondFragment)
+                "basket" -> setCurrentFragment(thirdFragment)
+                "restavracija" -> setCurrentFragment(restavracijaFragment)
+                "vrsteHrane" -> setCurrentFragment(vrsteHraneFragment)
+                "zgodovina" -> setCurrentFragment(zgodovinaFragment)
+                "dostave" -> setCurrentFragment(dostaveFragment)
+                "prijava" -> setCurrentFragment(prijavaFragment)
+                "pravila" -> setCurrentFragment(pravilaFragment)
+                "kontakti" -> setCurrentFragment(kontaktiFragment)
+                "nastavitve" -> setCurrentFragment(nastavitveFragment)
+                else -> setCurrentFragment(firstFragment)
+            }
+        }
+        else setCurrentFragment(firstFragment)
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -80,43 +100,16 @@ class MainActivity : AppCompatActivity() {
 
     fun imageClickRestavracija(view: android.view.View) {
         clicked = resources.getResourceEntryName(view.id)
-//        setImageResource(clicked)
-        setCurrentFragment(restavracijaFragment)
-    }
 
-    fun setImageResource(clicked: String){
-        // TODO implement so that image changes
-
-        when(clicked){
-            "mcdonalds" -> {
-                imgRestavracija.setImageResource(R.drawable.mcdonalds)
-                imeRestavracijeText.text = "McDonalds"
-            }
-            "burgerking" -> {
-                imgRestavracija.setImageResource(R.drawable.burgerking)
-                imeRestavracijeText.text = "Burger King"
-            }
-            "kfc" -> {
-                imgRestavracija.setImageResource(R.drawable.kfc)
-                imeRestavracijeText.text = "KFC"
-
-            }
-            "chinese" -> {
-                imgRestavracija.setImageResource(R.drawable.chinese)
-                imeRestavracijeText.text = "Chinese restaurant"
-            }
-            "spar" -> {
-                imgRestavracija.setImageResource(R.drawable.spar)
-                imeRestavracijeText.text = "Spar restavracija"
-            }
-            "subway" -> {
-                imgRestavracija.setImageResource(R.drawable.subway)
-                imeRestavracijeText.text = "Subway"
-            }
+        Intent(this, RestavracijaActivity::class.java).also {
+            it.putExtra("clicked", clicked)
+            startActivity(it)
         }
     }
 
     fun imageClickVrsteHrane(view: android.view.View) {
-        setCurrentFragment(vrsteHraneFragment)
+        Intent(this, VrsteHraneActivity::class.java).also {
+            startActivity(it)
+        }
     }
 }

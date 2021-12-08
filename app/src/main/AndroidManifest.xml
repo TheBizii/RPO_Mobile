@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".NastavitveActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".VrsteHraneActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RestavracijaActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

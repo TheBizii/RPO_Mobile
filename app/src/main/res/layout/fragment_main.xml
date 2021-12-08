@@ -179,6 +179,7 @@
                 <ImageView
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
+                    android:id="@+id/fastfood"
                     android:src="@drawable/fastfood"
                     android:onClick="imageClickVrsteHrane"
                     android:clickable="true"
@@ -188,6 +189,7 @@
                 <ImageView
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
+                    android:id="@+id/chinesefood"
                     android:src="@drawable/chinesefood"
                     android:onClick="imageClickVrsteHrane"
                     android:clickable="true"
@@ -197,6 +199,7 @@
                 <ImageView
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
+                    android:id="@+id/mexican"
                     android:src="@drawable/mexicanfood"
                     android:onClick="imageClickVrsteHrane"
                     android:clickable="true"
@@ -206,6 +209,7 @@
                 <ImageView
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
+                    android:id="@+id/salads"
                     android:src="@drawable/salads"
                     android:onClick="imageClickVrsteHrane"
                     android:clickable="true"
@@ -215,6 +219,7 @@
                 <ImageView
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
+                    android:id="@+id/seafood"
                     android:src="@drawable/seafood"
                     android:onClick="imageClickVrsteHrane"
                     android:clickable="true"

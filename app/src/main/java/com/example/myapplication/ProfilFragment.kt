@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 
-class NastavitveFragment : Fragment(R.layout.fragment_nastavitve) {
+class ProfilFragment : Fragment(R.layout.fragment_profil) {
 }

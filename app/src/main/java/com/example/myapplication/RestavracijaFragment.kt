@@ -8,6 +8,4 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_restavracija.*
 
 class RestavracijaFragment : Fragment(R.layout.fragment_restavracija) {
-
-
 }

@@ -26,8 +26,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ime Restavracije"
-                    android:textColor="#43a047"
+                    android:textColor="@color/green"
                     android:textSize="40sp"
+                    android:layout_margin="12dp"
                     android:textStyle="italic|bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -81,7 +82,9 @@
                         android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
-                        android:text="Tag1"
+                        android:id="@+id/fastfood"
+                        android:text="Hitra hrana"
+                        android:onClick="imageClickVrsteHrane"
                         android:textAlignment="center"
                         android:textSize="15sp" />
 
@@ -92,7 +95,9 @@
                         android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
-                        android:text="Tag 2"
+                        android:id="@+id/chinesefood"
+                        android:text="Kitajska hrana"
+                        android:onClick="imageClickVrsteHrane"
                         android:textAlignment="center"
                         android:textSize="15sp" />
 
@@ -103,7 +108,9 @@
                         android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
-                        android:text="Tag 3"
+                        android:id="@+id/seafood"
+                        android:text="Morska hrana"
+                        android:onClick="imageClickVrsteHrane"
                         android:textAlignment="center"
                         android:textSize="15sp" />
 
@@ -114,7 +121,9 @@
                         android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
-                        android:text="Tag 4"
+                        android:id="@+id/salads"
+                        android:text="Solate"
+                        android:onClick="imageClickVrsteHrane"
                         android:textAlignment="center"
                         android:textSize="15sp" />
 
@@ -125,7 +134,9 @@
                         android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
-                        android:text="Tag 5"
+                        android:id="@+id/mexican"
+                        android:text="Mehiska hrana"
+                        android:onClick="imageClickVrsteHrane"
                         android:textAlignment="center"
                         android:textSize="15sp" />
 

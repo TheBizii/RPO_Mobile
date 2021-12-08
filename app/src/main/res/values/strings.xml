@@ -4,4 +4,16 @@
     <string name="close">Close</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="pravila">Z uporabo naših storitev se strinjate da poznamo vaso lokacijo,
+        da vemo kam moramo dostavljati hrano, prav tako pa vemo vaše osebne podatke, da ne pride do zlorab.</string>
+    <string name="pravice">V primeru, da naročena hrana ne pride do vas, imate pravico zahtevati vračilo denarja ali novo naročilo.</string>
+    <string name="kontakti">Tim Vehovar:\n<br />
+                             - tim.vehovar@student.um.si\n\n<br /><br />
+                            Tomaž Bizjak:\n<br />
+                             - tomaz.bizjak@student.um.si\n\n<br /><br />
+                            Aleksander Grobelnik:\n<br />
+                             - aleksander.grobelnik@student.um.si\n\n<br /><br />
+                            Marcel Kumer:\n<br />
+                             - marcel.kumer@student.um.si</string>
 </resources>

@@ -3,13 +3,15 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
-import kotlinx.android.synthetic.main.activity_main.*
+import android.widget.CheckBox
+import android.widget.Switch
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
 import kotlinx.android.synthetic.main.activity_restavracija.*
-import kotlinx.android.synthetic.main.activity_restavracija.bottomNavigationView
 
-class RestavracijaActivity : AppCompatActivity() {
+class NastavitveActivity : AppCompatActivity() {
 
     lateinit var toggle: ActionBarDrawerToggle
 
@@ -17,13 +19,7 @@ class RestavracijaActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_restavracija)
-
-        val bundle: Bundle? = intent.extras
-
-        val clicked = bundle?.get("clicked")
-
-        setImgRes(clicked as String)
+        setContentView(R.layout.activity_nastavitve)
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
@@ -45,7 +41,6 @@ class RestavracijaActivity : AppCompatActivity() {
             }
             true
         }
-
         toggle = ActionBarDrawerToggle(this, drawerLayout2, R.string.open, R.string.close)
         drawerLayout2.addDrawerListener(toggle)
         toggle.syncState()
@@ -102,36 +97,56 @@ class RestavracijaActivity : AppCompatActivity() {
             }
             true
         }
-    }
 
-    fun setImgRes(clicked: String){
 
-        when(clicked){
-            "mcdonalds" -> {
-                imgRestavracija.setImageResource(R.drawable.mcdonalds)
-                imeRestavracijeText.text = "McDonalds"
+        val sw = findViewById<SwitchCompat>(R.id.switchtheme)
+        //val cb = findViewById<CheckBox>(R.id.checkBox)
+
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            sw.isChecked = true
+            //cb.isChecked = false
+            sw.isClickable = true
+            sw.isFocusable = true
+        }
+        else if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO){
+            sw.isChecked = false
+            //cb.isChecked = false
+            sw.isClickable = true
+            sw.isFocusable = true
+        }
+        else {
+            sw.isClickable = true
+            sw.isFocusable = true
+            //cb.isChecked = true
+        }
+
+        sw.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(sw.isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
-            "burgerking" -> {
-                imgRestavracija.setImageResource(R.drawable.burgerking)
-                imeRestavracijeText.text = "Burger King"
-            }
-            "kfc" -> {
-                imgRestavracija.setImageResource(R.drawable.kfc)
-                imeRestavracijeText.text = "KFC"
-            }
-            "chinese" -> {
-                imgRestavracija.setImageResource(R.drawable.chinese)
-                imeRestavracijeText.text = "Chinese restaurant"
-            }
-            "spar" -> {
-                imgRestavracija.setImageResource(R.drawable.spar)
-                imeRestavracijeText.text = "Spar restavracija"
-            }
-            "subway" -> {
-                imgRestavracija.setImageResource(R.drawable.subway)
-                imeRestavracijeText.text = "Subway"
+            else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
+
+        /*cb.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            if(cb.isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                sw.isClickable = false
+                sw.isFocusable = false
+            }
+            else{
+                if(sw.isChecked) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
+                else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
+                sw.isFocusable = true
+                sw.isClickable = true
+            }
+        }*/
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -140,14 +155,5 @@ class RestavracijaActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    fun imageClickVrsteHrane(view: android.view.View) {
-        clicked = resources.getResourceEntryName(view.id)
-
-        Intent(this, VrsteHraneActivity::class.java).also {
-            it.putExtra("clicked", clicked)
-            startActivity(it)
-        }
     }
 }

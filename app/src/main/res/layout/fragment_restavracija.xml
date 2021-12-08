@@ -25,6 +25,7 @@
                 android:text="Restavracije"
                 android:textColor="#43a047"
                 android:textSize="40sp"
+                android:layout_margin="12dp"
                 android:textStyle="italic|bold"
                 app:layout_constraintTop_toTopOf="@+id/scrollView2" />
 

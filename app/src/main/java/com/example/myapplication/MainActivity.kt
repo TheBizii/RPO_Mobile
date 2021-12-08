@@ -10,6 +10,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import androidx.drawerlayout.widget.DrawerLayout
+import android.widget.ArrayAdapter
+import android.widget.Switch
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+import androidx.appcompat.widget.SwitchCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,17 +26,19 @@ class MainActivity : AppCompatActivity() {
     val restavracijaFragment=RestavracijaFragment()
     val dostaveFragment=DostaveFragment()
     val kontaktiFragment=KontaktiFragment()
-    val nastavitveFragment=NastavitveFragment()
     val pravilaFragment=PravilaFragment()
     val prijavaFragment=PrijavaFragment()
     val vrsteHraneFragment=VrsteHraneFragment()
     val zgodovinaFragment=ZgodovinaFragment()
+    val profilFragment=ProfilFragment()
 
     var clicked = "Empty"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         val bundle: Bundle? = intent.extras
 
@@ -47,7 +54,12 @@ class MainActivity : AppCompatActivity() {
                 "prijava" -> setCurrentFragment(prijavaFragment)
                 "pravila" -> setCurrentFragment(pravilaFragment)
                 "kontakti" -> setCurrentFragment(kontaktiFragment)
-                "nastavitve" -> setCurrentFragment(nastavitveFragment)
+                "profil" -> setCurrentFragment(profilFragment)
+                "nastavitve" -> {
+                    Intent(this, NastavitveActivity::class.java).also {
+                        startActivity(it)
+                    }
+                }
                 else -> setCurrentFragment(firstFragment)
             }
         }
@@ -68,7 +80,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.miPrijava->setCurrentFragment(prijavaFragment)
                 R.id.miPravila->setCurrentFragment(pravilaFragment)
                 R.id.miKontakti->setCurrentFragment(kontaktiFragment)
-                R.id.miNastavitve->setCurrentFragment(nastavitveFragment)
+                R.id.miProfil->setCurrentFragment(profilFragment)
+                R.id.miNastavitve->{
+                    Intent(this, NastavitveActivity::class.java).also {
+                        startActivity(it)
+                    }
+                }
             }
             true
         }
@@ -81,7 +98,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -108,7 +124,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun imageClickVrsteHrane(view: android.view.View) {
+        clicked = resources.getResourceEntryName(view.id)
+
         Intent(this, VrsteHraneActivity::class.java).also {
+            it.putExtra("clicked", clicked)
             startActivity(it)
         }
     }

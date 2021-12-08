@@ -33,4 +33,8 @@
         android:id="@+id/miNastavitve"
         android:title="Nastavitve" />
 
+    <item
+        android:id="@+id/miProfil"
+        android:title="Profil" />
+
 </menu>

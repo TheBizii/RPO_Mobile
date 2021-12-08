@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
-import kotlinx.android.synthetic.main.activity_vrste_hrane.*
+import kotlinx.android.synthetic.main.activity_restavracija.*
 import kotlinx.android.synthetic.main.activity_restavracija.bottomNavigationView
+import kotlinx.android.synthetic.main.activity_vrste_hrane.*
+import kotlinx.android.synthetic.main.activity_vrste_hrane.drawerLayout2
+import kotlinx.android.synthetic.main.activity_vrste_hrane.navView2
 
 class VrsteHraneActivity : AppCompatActivity() {
 
@@ -15,6 +18,26 @@ class VrsteHraneActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vrste_hrane)
+
+        val bundle: Bundle? = intent.extras
+
+        when(bundle?.get("clicked")){
+            "fastfood" -> {
+                vrstaHraneText.text = "Hitra hrana"
+            }
+            "chinese" -> {
+                vrstaHraneText.text = "Kitajska hrana"
+            }
+            "seafood" -> {
+                vrstaHraneText.text = "Morska hrana"
+            }
+            "salads" -> {
+                vrstaHraneText.text = "Solate"
+            }
+            "mexican" -> {
+                vrstaHraneText.text = "Mehiska hrana"
+            }
+        }
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
 
@@ -84,6 +107,11 @@ class VrsteHraneActivity : AppCompatActivity() {
                 R.id.miNastavitve-> {
                     val intent = Intent(this, MainActivity::class.java)
                     intent.putExtra("nav", "nastavitve")
+                    startActivity(intent)
+                }
+                R.id.miProfil-> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("nav", "profil")
                     startActivity(intent)
                 }
             }

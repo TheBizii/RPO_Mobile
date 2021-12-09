@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import MyPreferences
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        checkTheme()
 
         val bundle: Bundle? = intent.extras
 
@@ -129,6 +130,25 @@ class MainActivity : AppCompatActivity() {
         Intent(this, VrsteHraneActivity::class.java).also {
             it.putExtra("clicked", clicked)
             startActivity(it)
+        }
+    }
+
+
+
+    private fun checkTheme() {
+        when (MyPreferences(this).darkMode) {
+            0 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                delegate.applyDayNight()
+            }
+            1 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                delegate.applyDayNight()
+            }
+            2 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                delegate.applyDayNight()
+            }
         }
     }
 }

@@ -1,24 +1,16 @@
 package com.example.myapplication
 
-import MyPreferences
+import MojeNastavitve
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.ListView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_main.*
-import androidx.drawerlayout.widget.DrawerLayout
-import android.widget.ArrayAdapter
-import android.widget.Switch
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
-import androidx.appcompat.widget.SwitchCompat
 
 class MainActivity : AppCompatActivity() {
-
     lateinit var toggle: ActionBarDrawerToggle
 
     val firstFragment=MainFragment()
@@ -28,10 +20,8 @@ class MainActivity : AppCompatActivity() {
     val dostaveFragment=DostaveFragment()
     val kontaktiFragment=KontaktiFragment()
     val pravilaFragment=PravilaFragment()
-    val prijavaFragment=PrijavaFragment()
     val vrsteHraneFragment=VrsteHraneFragment()
     val zgodovinaFragment=ZgodovinaFragment()
-    val profilFragment=ProfilFragment()
 
     var clicked = "Empty"
 
@@ -52,10 +42,18 @@ class MainActivity : AppCompatActivity() {
                 "vrsteHrane" -> setCurrentFragment(vrsteHraneFragment)
                 "zgodovina" -> setCurrentFragment(zgodovinaFragment)
                 "dostave" -> setCurrentFragment(dostaveFragment)
-                "prijava" -> setCurrentFragment(prijavaFragment)
+                "prijava" -> {
+                    Intent(this, PrijavaActivity::class.java).also {
+                        startActivity(it)
+                    }
+                }
                 "pravila" -> setCurrentFragment(pravilaFragment)
                 "kontakti" -> setCurrentFragment(kontaktiFragment)
-                "profil" -> setCurrentFragment(profilFragment)
+                "profil" -> {
+                    Intent(this, ProfilActivity::class.java).also {
+                        startActivity(it)
+                    }
+                }
                 "nastavitve" -> {
                     Intent(this, NastavitveActivity::class.java).also {
                         startActivity(it)
@@ -78,10 +76,18 @@ class MainActivity : AppCompatActivity() {
                 R.id.miVrsteHrane->setCurrentFragment(vrsteHraneFragment)
                 R.id.miZgodovina->setCurrentFragment(zgodovinaFragment)
                 R.id.miDostave->setCurrentFragment(dostaveFragment)
-                R.id.miPrijava->setCurrentFragment(prijavaFragment)
+                R.id.miPrijava-> {
+                    Intent(this, PrijavaActivity::class.java).also {
+                        startActivity(it)
+                    }
+                }
                 R.id.miPravila->setCurrentFragment(pravilaFragment)
                 R.id.miKontakti->setCurrentFragment(kontaktiFragment)
-                R.id.miProfil->setCurrentFragment(profilFragment)
+                R.id.miProfil-> {
+                    Intent(this, ProfilActivity::class.java).also {
+                        startActivity(it)
+                    }
+                }
                 R.id.miNastavitve->{
                     Intent(this, NastavitveActivity::class.java).also {
                         startActivity(it)
@@ -109,7 +115,7 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setCurrentFragment(fragment:Fragment)=
+    fun setCurrentFragment(fragment:Fragment)=
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment,fragment)
             commit()
@@ -133,10 +139,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
-    private fun checkTheme() {
-        when (MyPreferences(this).darkMode) {
+     fun checkTheme() {
+        when (MojeNastavitve(this).darkMode) {
             0 -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 delegate.applyDayNight()

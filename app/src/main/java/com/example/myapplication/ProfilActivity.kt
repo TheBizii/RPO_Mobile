@@ -1,33 +1,32 @@
 package com.example.myapplication
 
-import MojeNastavitve
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDelegate
-import kotlinx.android.synthetic.main.activity_nastavitve.*
-import kotlinx.android.synthetic.main.activity_restavracija.bottomNavigationView
-import kotlinx.android.synthetic.main.activity_restavracija.drawerLayout2
-import kotlinx.android.synthetic.main.activity_restavracija.navView2
+import android.view.MenuItem
+import kotlinx.android.synthetic.main.activity_prijava.*
+import kotlinx.android.synthetic.main.activity_profil.*
+import kotlinx.android.synthetic.main.activity_profil.drawerLayout
+import kotlinx.android.synthetic.main.activity_profil.navView
+//import kotlinx.android.synthetic.main.activity_profil.bottomNavigationView
 
-class NastavitveActivity : AppCompatActivity() {
+class ProfilActivity : AppCompatActivity() {
 
     lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_nastavitve)
+        setContentView(R.layout.activity_profil)
 
+        var sh = getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
 
-        checkTheme()
+        var s1: String? = sh.getString("eposta", "")
 
-        btnTheme.setOnClickListener { chooseThemeDialog() }
+        upIme.text = s1
 
-        bottomNavigationView.setOnNavigationItemSelectedListener {
+        /*bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.home-> {
                     val intent = Intent(this, MainActivity::class.java)
@@ -46,14 +45,26 @@ class NastavitveActivity : AppCompatActivity() {
                 }
             }
             true
+        }*/
+
+        gumbOdjava.setOnClickListener{
+            var sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+            val myEdit: SharedPreferences.Editor = sharedPreferences.edit()
+
+            myEdit.putString("eposta", "")
+            myEdit.apply()
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
-        toggle = ActionBarDrawerToggle(this, drawerLayout2, R.string.open, R.string.close)
-        drawerLayout2.addDrawerListener(toggle)
+
+        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        navView2.setNavigationItemSelectedListener {
+        navView.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.miRestavracije-> {
                     val intent = Intent(this, MainActivity::class.java)
@@ -111,57 +122,5 @@ class NastavitveActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun chooseThemeDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Theme")
-        val styles = arrayOf("Light", "Dark", "System default")
-        val checkedItem = MojeNastavitve(this).darkMode
-
-        builder.setSingleChoiceItems(styles, checkedItem) { dialog, which ->
-
-            when (which) {
-                0 -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    MojeNastavitve(this).darkMode = 0
-                    delegate.applyDayNight()
-                    dialog.dismiss()
-                }
-                1 -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    MojeNastavitve(this).darkMode = 1
-                    delegate.applyDayNight()
-                    dialog.dismiss()
-                }
-                2 -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                    MojeNastavitve(this).darkMode = 2
-                    delegate.applyDayNight()
-                    dialog.dismiss()
-                }
-
-            }
-        }
-
-        val dialog = builder.create()
-        dialog.show()
-    }
-
-    private fun checkTheme() {
-        when (MojeNastavitve(this).darkMode) {
-            0 -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                delegate.applyDayNight()
-            }
-            1 -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                delegate.applyDayNight()
-            }
-            2 -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                delegate.applyDayNight()
-            }
-        }
     }
 }

@@ -2,30 +2,46 @@ package com.example.myapplication
 
 import MojeNastavitve
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
-import kotlinx.android.synthetic.main.activity_nastavitve.*
-import kotlinx.android.synthetic.main.activity_restavracija.bottomNavigationView
-import kotlinx.android.synthetic.main.activity_restavracija.drawerLayout2
-import kotlinx.android.synthetic.main.activity_restavracija.navView2
+import kotlinx.android.synthetic.main.activity_prijava.bottomNavigationView
+import kotlinx.android.synthetic.main.activity_prijava.drawerLayout
+import kotlinx.android.synthetic.main.activity_prijava.navView2
+import kotlinx.android.synthetic.main.activity_prijava.*
+import com.android.volley.VolleyError
 
-class NastavitveActivity : AppCompatActivity() {
+import org.json.JSONException
 
+import org.json.JSONObject
+
+import com.android.volley.toolbox.StringRequest
+
+import com.android.volley.toolbox.Volley
+
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.EditText
+
+
+class PrijavaActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_nastavitve)
-
+        setContentView(R.layout.activity_prijava)
 
         checkTheme()
-
-        btnTheme.setOnClickListener { chooseThemeDialog() }
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
@@ -47,8 +63,8 @@ class NastavitveActivity : AppCompatActivity() {
             }
             true
         }
-        toggle = ActionBarDrawerToggle(this, drawerLayout2, R.string.open, R.string.close)
-        drawerLayout2.addDrawerListener(toggle)
+        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -109,43 +125,7 @@ class NastavitveActivity : AppCompatActivity() {
         if (toggle.onOptionsItemSelected(item)){
             return true
         }
-
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun chooseThemeDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Theme")
-        val styles = arrayOf("Light", "Dark", "System default")
-        val checkedItem = MojeNastavitve(this).darkMode
-
-        builder.setSingleChoiceItems(styles, checkedItem) { dialog, which ->
-
-            when (which) {
-                0 -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    MojeNastavitve(this).darkMode = 0
-                    delegate.applyDayNight()
-                    dialog.dismiss()
-                }
-                1 -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    MojeNastavitve(this).darkMode = 1
-                    delegate.applyDayNight()
-                    dialog.dismiss()
-                }
-                2 -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                    MojeNastavitve(this).darkMode = 2
-                    delegate.applyDayNight()
-                    dialog.dismiss()
-                }
-
-            }
-        }
-
-        val dialog = builder.create()
-        dialog.show()
     }
 
     private fun checkTheme() {
@@ -163,5 +143,77 @@ class NastavitveActivity : AppCompatActivity() {
                 delegate.applyDayNight()
             }
         }
+    }
+
+    fun bntClickPrijava(view: android.view.View) {
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex()
+
+        if(eposta.getText().toString().isEmpty()) {
+            Toast.makeText(getApplicationContext(),"enter email address",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            if (!eposta.getText().toString().trim().matches(emailPattern)) {
+                Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                postDataUsingVolley(eposta.getText().toString(), geslo.getText().toString());
+
+                //TODO - to prestavit v funkcijo da se prijava zgodi samo ob pravilnem vnosu
+
+                var sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+                val myEdit: SharedPreferences.Editor = sharedPreferences.edit()
+
+                myEdit.putString("eposta", eposta.text.toString())
+                myEdit.apply()
+            }
+        }
+    }
+
+    private fun postDataUsingVolley(email: String, password: String) {
+        val url = "https://bolt.printeepro.com/API/login"
+        loadingPB.visibility = View.VISIBLE
+
+        val queue = Volley.newRequestQueue(this)
+
+        val request: StringRequest = object : StringRequest(
+            Method.POST, url,
+            Response.Listener { response ->
+                loadingPB.visibility = View.GONE
+                eposta.setText("")
+                geslo.setText("")
+
+                try {
+                    val respObj = JSONObject(response)
+
+                    val email = respObj.getString("email")
+                    val password = respObj.getString("password")
+
+                    odgovor.setText("Email : $email\nPassword : $password")
+
+                } catch (e: JSONException) {
+                    val respObj = JSONObject(response)
+                    Toast.makeText(this, respObj.getString("error"), Toast.LENGTH_SHORT).show()
+                    e.printStackTrace()
+                }
+            },
+            Response.ErrorListener { error -> // method to handle errors.
+                Toast.makeText(
+                    this,
+                    "Fail to get response = $error",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }) {
+            override fun getParams(): Map<String, String> {
+                val params: MutableMap<String, String> = HashMap()
+
+                params["email"] = email
+                params["password"] = password
+
+                return params
+            }
+        }
+        // below line is to make
+        // a json object request.
+        queue.add(request)
     }
 }

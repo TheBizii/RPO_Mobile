@@ -11,6 +11,8 @@ import kotlinx.android.synthetic.main.activity_restavracija.bottomNavigationView
 
 class RestavracijaActivity : AppCompatActivity() {
 
+
+
     lateinit var toggle: ActionBarDrawerToggle
 
     var clicked = "Empty"
@@ -18,7 +20,6 @@ class RestavracijaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restavracija)
-
         val bundle: Bundle? = intent.extras
 
         val clicked = bundle?.get("clicked")

@@ -11,6 +11,7 @@
         <entry key="..\:/FERI/Bolt/app/src/main/res/menu/bottom_nav_menu.xml" value="0.21875" />
         <entry key="..\:/FERI/Bolt/app/src/main/res/menu/nav_drawer_menu.xml" value="0.21875" />
         <entry key="..\:/FERI/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.38697916666666665" />
+        <entry key="..\:/FERI/RPO_Mobile/app/src/main/res/layout/activity_kosara.xml" value="0.38697916666666665" />
         <entry key="..\:/FERI/RPO_Mobile/app/src/main/res/layout/activity_main.xml" value="0.3319746376811594" />
         <entry key="..\:/FERI/RPO_Mobile/app/src/main/res/layout/activity_nastavitve.xml" value="0.38697916666666665" />
         <entry key="..\:/FERI/RPO_Mobile/app/src/main/res/layout/activity_prijava.xml" value="0.33" />
@@ -34,6 +35,7 @@
         <entry key="..\:/FERI/RPO_Mobile/app/src/main/res/layout/nav_header.xml" value="0.3125" />
         <entry key="..\:/FERI/RPO_Mobile/app/src/main/res/menu/bottom_nav_menu.xml" value="0.38697916666666665" />
         <entry key="..\:/FERI/RPO_Mobile/app/src/main/res/menu/nav_drawer_menu.xml" value="0.38697916666666665" />
+        <entry key="..\:/FERI/RPO_Mobile/app/src/main/res/menu/nav_drawer_menu_logged_out.xml" value="0.21875" />
       </map>
     </option>
   </component>

@@ -38,12 +38,12 @@
             app:layout_constraintTop_toTopOf="parent" />
         -->
         <EditText
-            android:id="@+id/eposta"
+            android:id="@+id/uporabniskoIme"
             android:layout_width="wrap_content"
             android:layout_height="48sp"
             android:layout_marginTop="25dp"
             android:ems="15"
-            android:hint="Elektronska posta"
+            android:hint="Uporabnisko ime"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -84,11 +84,12 @@
             android:layout_height="48sp"
             android:layout_marginTop="25dp"
             android:ems="15"
+            android:inputType="textPassword"
             android:hint="Geslo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eposta" />
+            app:layout_constraintTop_toBottomOf="@+id/uporabniskoIme" />
 
         <Button
             android:id="@+id/gumb"
@@ -146,7 +147,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navView2"
+        android:id="@+id/navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:headerLayout="@layout/nav_header"

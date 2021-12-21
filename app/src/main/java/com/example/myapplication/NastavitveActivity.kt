@@ -5,14 +5,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import kotlinx.android.synthetic.main.activity_nastavitve.*
 import kotlinx.android.synthetic.main.activity_restavracija.bottomNavigationView
 import kotlinx.android.synthetic.main.activity_restavracija.drawerLayout2
-import kotlinx.android.synthetic.main.activity_restavracija.navView2
 
 class NastavitveActivity : AppCompatActivity() {
 
@@ -22,6 +21,22 @@ class NastavitveActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nastavitve)
 
+        val sh = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+
+        val s1: String? = sh.getString("username", "")
+
+        if(s1 == ""){
+            hideOption(R.id.miDostave)
+            hideOption(R.id.miZgodovina)
+            hideOption(R.id.miProfil)
+            showOption(R.id.miPrijava)
+        }
+        else{
+            showOption(R.id.miDostave)
+            showOption(R.id.miZgodovina)
+            showOption(R.id.miProfil)
+            hideOption(R.id.miPrijava)
+        }
 
         checkTheme()
 
@@ -53,7 +68,7 @@ class NastavitveActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        navView2.setNavigationItemSelectedListener {
+        navView.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.miRestavracije-> {
                     val intent = Intent(this, MainActivity::class.java)
@@ -163,5 +178,15 @@ class NastavitveActivity : AppCompatActivity() {
                 delegate.applyDayNight()
             }
         }
+    }
+
+    private fun hideOption(id: Int) {
+        val item: MenuItem = navView.menu.findItem(id)
+        item.isVisible = false
+    }
+
+    private fun showOption(id: Int) {
+        val item: MenuItem = navView.menu.findItem(id)
+        item.isVisible = true
     }
 }

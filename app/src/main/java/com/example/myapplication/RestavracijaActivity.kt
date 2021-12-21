@@ -5,14 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
-import kotlinx.android.synthetic.main.activity_main.*
+import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_restavracija.*
 import kotlinx.android.synthetic.main.activity_restavracija.bottomNavigationView
+import Kosarica
 
 class RestavracijaActivity : AppCompatActivity() {
-
-
-
     lateinit var toggle: ActionBarDrawerToggle
 
     var clicked = "Empty"
@@ -20,6 +19,24 @@ class RestavracijaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restavracija)
+
+        val sh = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+
+        val s1: String? = sh.getString("username", "")
+
+        if(s1 == ""){
+            hideOption(R.id.miDostave)
+            hideOption(R.id.miZgodovina)
+            hideOption(R.id.miProfil)
+            showOption(R.id.miPrijava)
+        }
+        else{
+            showOption(R.id.miDostave)
+            showOption(R.id.miZgodovina)
+            showOption(R.id.miProfil)
+            hideOption(R.id.miPrijava)
+        }
+
         val bundle: Bundle? = intent.extras
 
         val clicked = bundle?.get("clicked")
@@ -53,7 +70,7 @@ class RestavracijaActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        navView2.setNavigationItemSelectedListener {
+        navView.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.miRestavracije-> {
                     val intent = Intent(this, MainActivity::class.java)
@@ -103,6 +120,10 @@ class RestavracijaActivity : AppCompatActivity() {
             }
             true
         }
+
+        Meniji.setOnClickListener{
+
+        }
     }
 
     fun setImgRes(clicked: String){
@@ -143,12 +164,34 @@ class RestavracijaActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun imageClickVrsteHrane(view: android.view.View) {
+    fun imageClickVrsteHrane(view: View) {
         clicked = resources.getResourceEntryName(view.id)
 
         Intent(this, VrsteHraneActivity::class.java).also {
             it.putExtra("clicked", clicked)
             startActivity(it)
         }
+    }
+
+    private fun hideOption(id: Int) {
+        val item: MenuItem = navView.menu.findItem(id)
+        item.isVisible = false
+    }
+
+    private fun showOption(id: Int) {
+        val item: MenuItem = navView.menu.findItem(id)
+        item.isVisible = true
+    }
+
+    fun btnClickMeni(view: View) {
+        when(view.tag){
+            "meni1" -> Kosarica.arrayList.add(view.tag.toString())
+            "meni2" -> Kosarica.arrayList.add(view.tag.toString())
+            "meni3" -> Kosarica.arrayList.add(view.tag.toString())
+            "meni4" -> Kosarica.arrayList.add(view.tag.toString())
+            "meni5" -> Kosarica.arrayList.add(view.tag.toString())
+            "meni6" -> Kosarica.arrayList.add(view.tag.toString())
+        }
+        Toast.makeText(this, view.tag.toString() + " dodan v košarico", Toast.LENGTH_SHORT).show()
     }
 }

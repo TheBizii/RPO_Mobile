@@ -16,6 +16,9 @@
             android:name=".ProfilActivity"
             android:exported="false"/>
         <activity
+            android:name=".KosaraActivity"
+            android:exported="false"/>
+        <activity
             android:name=".NastavitveActivity"
             android:exported="false"/>
         <activity

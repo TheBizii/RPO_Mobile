@@ -5,18 +5,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
-import kotlinx.android.synthetic.main.activity_restavracija.bottomNavigationView
-import kotlinx.android.synthetic.main.activity_vrste_hrane.*
-import kotlinx.android.synthetic.main.activity_vrste_hrane.drawerLayout2
-import kotlinx.android.synthetic.main.activity_vrste_hrane.navView
+import android.view.View
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_kosara.*
+import kotlinx.android.synthetic.main.activity_kosara.bottomNavigationView
+import Kosarica
+import android.widget.ArrayAdapter
 
-class VrsteHraneActivity : AppCompatActivity() {
-
+class KosaraActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_vrste_hrane)
+        setContentView(R.layout.activity_kosara)
+
+        val list = Kosarica.arrayList
+
+        listKosarica.adapter = ArrayAdapter( this, android.R.layout.simple_list_item_1, list)
 
         val sh = getSharedPreferences("MySharedPref", MODE_PRIVATE)
 
@@ -35,28 +40,7 @@ class VrsteHraneActivity : AppCompatActivity() {
             hideOption(R.id.miPrijava)
         }
 
-        val bundle: Bundle? = intent.extras
-
-        when(bundle?.get("clicked")){
-            "fastfood" -> {
-                vrstaHraneText.text = "Hitra hrana"
-            }
-            "chinese" -> {
-                vrstaHraneText.text = "Kitajska hrana"
-            }
-            "seafood" -> {
-                vrstaHraneText.text = "Morska hrana"
-            }
-            "salads" -> {
-                vrstaHraneText.text = "Solate"
-            }
-            "mexican" -> {
-                vrstaHraneText.text = "Mehiska hrana"
-            }
-        }
-
         bottomNavigationView.setOnNavigationItemSelectedListener {
-
             when(it.itemId){
                 R.id.home-> {
                     val intent = Intent(this, MainActivity::class.java)
@@ -77,11 +61,17 @@ class VrsteHraneActivity : AppCompatActivity() {
             true
         }
 
-        toggle = ActionBarDrawerToggle(this, drawerLayout2, R.string.open, R.string.close)
-        drawerLayout2.addDrawerListener(toggle)
+        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        listKosarica.setOnItemClickListener { parent, _, position, _ ->
+            Kosarica.arrayList.remove(parent.getItemAtPosition(position))
+            finish();
+            startActivity(intent);
+        }
 
         navView.setNavigationItemSelectedListener {
             when(it.itemId){
@@ -132,15 +122,6 @@ class VrsteHraneActivity : AppCompatActivity() {
                 }
             }
             true
-        }
-    }
-
-    fun imageClickRestavracija(view: android.view.View) {
-        val clicked = resources.getResourceEntryName(view.id)
-
-        Intent(this, RestavracijaActivity::class.java).also {
-            it.putExtra("clicked", clicked)
-            startActivity(it)
         }
     }
 

@@ -9,25 +9,48 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatDelegate
+import kotlinx.android.synthetic.main.activity_main.drawerLayout
+import kotlinx.android.synthetic.main.activity_main.navView
+import Kosarica
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
 
-    val firstFragment=MainFragment()
-    val secondFragment=SecondFragment()
-    val thirdFragment=ThirdFragment()
-    val restavracijaFragment=RestavracijaFragment()
-    val dostaveFragment=DostaveFragment()
-    val kontaktiFragment=KontaktiFragment()
-    val pravilaFragment=PravilaFragment()
-    val vrsteHraneFragment=VrsteHraneFragment()
-    val zgodovinaFragment=ZgodovinaFragment()
+    private val firstFragment=MainFragment()
+    private val secondFragment=SecondFragment()
+    private val activityKosara=KosaraActivity()
+    private val restavracijaFragment=RestavracijaFragment()
+    private val dostaveFragment=DostaveFragment()
+    private val kontaktiFragment=KontaktiFragment()
+    private val pravilaFragment=PravilaFragment()
+    private val vrsteHraneFragment=VrsteHraneFragment()
+    private val zgodovinaFragment=ZgodovinaFragment()
 
     var clicked = "Empty"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val i = Kosarica.arrayList.size
+
+        val sh = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+
+        val s1: String? = sh.getString("username", "")
+
+        if(s1 == ""){
+            hideOption(R.id.miDostave)
+            hideOption(R.id.miZgodovina)
+            hideOption(R.id.miProfil)
+            showOption(R.id.miPrijava)
+        }
+        else{
+            showOption(R.id.miDostave)
+            showOption(R.id.miZgodovina)
+            showOption(R.id.miProfil)
+            hideOption(R.id.miPrijava)
+        }
 
         checkTheme()
 
@@ -37,7 +60,11 @@ class MainActivity : AppCompatActivity() {
             when(bundle.get("nav").toString()){
                 "home" -> setCurrentFragment(firstFragment)
                 "search" -> setCurrentFragment(secondFragment)
-                "basket" -> setCurrentFragment(thirdFragment)
+                "basket" -> {
+                    Intent(this, KosaraActivity::class.java).also {
+                        startActivity(it)
+                    }
+                }
                 "restavracija" -> setCurrentFragment(restavracijaFragment)
                 "vrsteHrane" -> setCurrentFragment(vrsteHraneFragment)
                 "zgodovina" -> setCurrentFragment(zgodovinaFragment)
@@ -101,7 +128,11 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.home->setCurrentFragment(firstFragment)
                 R.id.search->setCurrentFragment(secondFragment)
-                R.id.basket->setCurrentFragment(thirdFragment)
+                R.id.basket-> {
+                    Intent(this, KosaraActivity::class.java).also {
+                        startActivity(it)
+                    }
+                }
             }
             true
         }
@@ -154,5 +185,15 @@ class MainActivity : AppCompatActivity() {
                 delegate.applyDayNight()
             }
         }
+    }
+
+    private fun hideOption(id: Int) {
+        val item: MenuItem = navView.menu.findItem(id)
+        item.isVisible = false
+    }
+
+    private fun showOption(id: Int) {
+        val item: MenuItem = navView.menu.findItem(id)
+        item.isVisible = true
     }
 }

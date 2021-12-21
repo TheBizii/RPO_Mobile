@@ -12,34 +12,45 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatDelegate
 import kotlinx.android.synthetic.main.activity_prijava.bottomNavigationView
 import kotlinx.android.synthetic.main.activity_prijava.drawerLayout
-import kotlinx.android.synthetic.main.activity_prijava.navView2
+import kotlinx.android.synthetic.main.activity_prijava.navView
 import kotlinx.android.synthetic.main.activity_prijava.*
-import com.android.volley.VolleyError
 
 import org.json.JSONException
 
 import org.json.JSONObject
 
-import com.android.volley.toolbox.StringRequest
-
 import com.android.volley.toolbox.Volley
 
-import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
+import com.android.volley.*
+import java.security.MessageDigest
+import java.util.*
 
 
 class PrijavaActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_prijava)
+
+        val sh = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+
+        val s1: String? = sh.getString("username", "")
+
+        if(s1 == ""){
+            hideOption(R.id.miDostave)
+            hideOption(R.id.miZgodovina)
+            hideOption(R.id.miProfil)
+            showOption(R.id.miPrijava)
+        }
+        else{
+            showOption(R.id.miDostave)
+            showOption(R.id.miZgodovina)
+            showOption(R.id.miProfil)
+            hideOption(R.id.miPrijava)
+        }
 
         checkTheme()
 
@@ -69,7 +80,7 @@ class PrijavaActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        navView2.setNavigationItemSelectedListener {
+        navView.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.miRestavracije-> {
                     val intent = Intent(this, MainActivity::class.java)
@@ -146,74 +157,87 @@ class PrijavaActivity : AppCompatActivity() {
     }
 
     fun bntClickPrijava(view: android.view.View) {
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex()
+        //val emailPattern = "[a-zA-Z0-9._-]+@([a-z]+\\.)+[a-z]+".toRegex()
 
-        if(eposta.getText().toString().isEmpty()) {
-            Toast.makeText(getApplicationContext(),"enter email address",Toast.LENGTH_SHORT).show();
+        if(uporabniskoIme.getText().toString().isEmpty()) {
+            Toast.makeText(getApplicationContext(),"Vpisi uporabnisko ime",Toast.LENGTH_SHORT).show();
         }
         else {
-            if (!eposta.getText().toString().trim().matches(emailPattern)) {
+            /*if (!eposta.getText().toString().trim().matches(emailPattern)) {
                 Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT).show()
             }
-            else{
-                postDataUsingVolley(eposta.getText().toString(), geslo.getText().toString());
+            else{*/
+                postDataUsingVolley(uporabniskoIme.getText().toString(), geslo.getText().toString());
 
-                //TODO - to prestavit v funkcijo da se prijava zgodi samo ob pravilnem vnosu
-
-                var sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+                /*var sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
                 val myEdit: SharedPreferences.Editor = sharedPreferences.edit()
 
                 myEdit.putString("eposta", eposta.text.toString())
-                myEdit.apply()
-            }
+                myEdit.apply()*/
+            //}
         }
     }
 
-    private fun postDataUsingVolley(email: String, password: String) {
+    private fun postDataUsingVolley(uname: String, password: String) {
         val url = "https://bolt.printeepro.com/API/login"
         loadingPB.visibility = View.VISIBLE
 
         val queue = Volley.newRequestQueue(this)
 
-        val request: StringRequest = object : StringRequest(
-            Method.POST, url,
-            Response.Listener { response ->
+        val bytes = password.toByteArray()
+        val md = MessageDigest.getInstance("SHA-256")
+        val digest = md.digest(bytes)
+
+        val hash = digest.fold("", { str, it -> str + "%02x".format(it) })
+
+        val req = JSONObject("{\"username\":\"${uname}\",\"password\":\"${hash.uppercase(Locale.getDefault())}\"}")
+
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST, url, req,
+            { response ->
                 loadingPB.visibility = View.GONE
-                eposta.setText("")
+                uporabniskoIme.setText("")
                 geslo.setText("")
 
                 try {
-                    val respObj = JSONObject(response)
+                    if(response.getString("message") == "OK")
 
-                    val email = respObj.getString("email")
-                    val password = respObj.getString("password")
+                    odgovor.text = "Prijavljen : $uname"
 
-                    odgovor.setText("Email : $email\nPassword : $password")
+                    var sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+                    val myEdit: SharedPreferences.Editor = sharedPreferences.edit()
+
+                    myEdit.putString("username", uname)
+                    myEdit.apply()
+                    Toast.makeText(this, uname, Toast.LENGTH_SHORT).show()
 
                 } catch (e: JSONException) {
-                    val respObj = JSONObject(response)
+                    val respObj = response
                     Toast.makeText(this, respObj.getString("error"), Toast.LENGTH_SHORT).show()
                     e.printStackTrace()
                 }
+
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             },
-            Response.ErrorListener { error -> // method to handle errors.
+            { error ->
                 Toast.makeText(
                     this,
                     "Fail to get response = $error",
                     Toast.LENGTH_SHORT
                 ).show()
-            }) {
-            override fun getParams(): Map<String, String> {
-                val params: MutableMap<String, String> = HashMap()
-
-                params["email"] = email
-                params["password"] = password
-
-                return params
             }
-        }
-        // below line is to make
-        // a json object request.
-        queue.add(request)
+        )
+        queue.add(jsonObjectRequest)
+    }
+
+    private fun hideOption(id: Int) {
+        val item: MenuItem = navView.menu.findItem(id)
+        item.isVisible = false
+    }
+
+    private fun showOption(id: Int) {
+        val item: MenuItem = navView.menu.findItem(id)
+        item.isVisible = true
     }
 }

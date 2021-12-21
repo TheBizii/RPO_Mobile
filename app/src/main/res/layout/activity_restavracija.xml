@@ -143,6 +143,7 @@
                 </LinearLayout>
 
                 <ScrollView
+                    android:id="@+id/Meniji"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout"
@@ -160,23 +161,29 @@
                             android:weightSum="2">
 
                             <TextView
+                                android:id="@+id/miMeni1"
+                                android:tag="meni1"
                                 android:layout_width="0dp"
                                 android:layout_height="150dp"
                                 android:layout_margin="15dp"
                                 android:layout_weight="1"
                                 android:clickable="true"
                                 android:focusable="true"
+                                android:onClick="btnClickMeni"
                                 android:text="Meni 1"
                                 android:textAlignment="center"
                                 android:textSize="25sp" />
 
                             <TextView
+                                android:id="@+id/miMeni2"
+                                android:tag="meni2"
                                 android:layout_width="0dp"
                                 android:layout_height="150dp"
                                 android:layout_margin="15dp"
                                 android:layout_weight="1"
                                 android:clickable="true"
                                 android:focusable="true"
+                                android:onClick="btnClickMeni"
                                 android:text="Meni 2"
                                 android:textAlignment="center"
                                 android:textSize="25sp" />
@@ -189,23 +196,29 @@
                             android:weightSum="2">
 
                             <TextView
+                                android:id="@+id/miMeni3"
+                                android:tag="meni3"
                                 android:layout_width="0dp"
                                 android:layout_height="150dp"
                                 android:layout_margin="15dp"
                                 android:layout_weight="1"
                                 android:clickable="true"
                                 android:focusable="true"
+                                android:onClick="btnClickMeni"
                                 android:text="Meni 3"
                                 android:textAlignment="center"
                                 android:textSize="25sp" />
 
                             <TextView
+                                android:id="@+id/miMeni4"
+                                android:tag="meni4"
                                 android:layout_width="0dp"
                                 android:layout_height="150dp"
                                 android:layout_margin="15dp"
                                 android:layout_weight="1"
                                 android:clickable="true"
                                 android:focusable="true"
+                                android:onClick="btnClickMeni"
                                 android:text="Meni 4"
                                 android:textAlignment="center"
                                 android:textSize="25sp" />
@@ -218,23 +231,29 @@
                             android:weightSum="2">
 
                             <TextView
+                                android:id="@+id/miMeni5"
+                                android:tag="meni5"
                                 android:layout_width="0dp"
                                 android:layout_height="150dp"
                                 android:layout_margin="15dp"
                                 android:layout_weight="1"
                                 android:clickable="true"
                                 android:focusable="true"
+                                android:onClick="btnClickMeni"
                                 android:text="Meni 5"
                                 android:textAlignment="center"
                                 android:textSize="25sp" />
 
                             <TextView
+                                android:id="@+id/miMeni6"
+                                android:tag="meni6"
                                 android:layout_width="0dp"
                                 android:layout_height="150dp"
                                 android:layout_margin="15dp"
                                 android:layout_weight="1"
                                 android:clickable="true"
                                 android:focusable="true"
+                                android:onClick="btnClickMeni"
                                 android:text="Meni 6"
                                 android:textAlignment="center"
                                 android:textSize="25sp" />
@@ -267,7 +286,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navView2"
+        android:id="@+id/navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:headerLayout="@layout/nav_header"

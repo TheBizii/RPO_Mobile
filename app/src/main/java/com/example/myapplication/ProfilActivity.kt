@@ -22,7 +22,7 @@ class ProfilActivity : AppCompatActivity() {
 
         var sh = getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
 
-        var s1: String? = sh.getString("eposta", "")
+        var s1: String? = sh.getString("username", "")
 
         upIme.text = s1
 
@@ -51,8 +51,10 @@ class ProfilActivity : AppCompatActivity() {
             var sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
             val myEdit: SharedPreferences.Editor = sharedPreferences.edit()
 
-            myEdit.putString("eposta", "")
+            myEdit.putString("username", "")
             myEdit.apply()
+
+            Kosarica.arrayList.clear()
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

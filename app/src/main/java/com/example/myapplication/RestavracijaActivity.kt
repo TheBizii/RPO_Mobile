@@ -185,13 +185,108 @@ class RestavracijaActivity : AppCompatActivity() {
 
     fun btnClickMeni(view: View) {
         when(view.tag){
-            "meni1" -> Kosarica.arrayList.add(view.tag.toString())
-            "meni2" -> Kosarica.arrayList.add(view.tag.toString())
-            "meni3" -> Kosarica.arrayList.add(view.tag.toString())
-            "meni4" -> Kosarica.arrayList.add(view.tag.toString())
-            "meni5" -> Kosarica.arrayList.add(view.tag.toString())
-            "meni6" -> Kosarica.arrayList.add(view.tag.toString())
+            "meni1" -> {
+                Kosarica.arrayList.forEach { str ->
+                    if (str == "Meni 1") {
+                        val i = Kosarica.duplicates["Meni 1"]
+                        if (i != null) {
+                            Kosarica.duplicates["Meni 1"] = i + 1
+                        }
+                        else{
+                            Kosarica.duplicates["Meni 1"] = 2
+                        }
+                        Toast.makeText(this, "Meni 1 dodan v košarico", Toast.LENGTH_SHORT).show()
+                        return
+                    }
+                }
+                Kosarica.arrayList.add("Meni 1")
+                Toast.makeText(this, "Meni 1 dodan v košarico", Toast.LENGTH_SHORT).show()
+            }
+            "meni2" -> {
+                Kosarica.arrayList.forEach { str ->
+                    if (str == "Meni 2") {
+                        val i = Kosarica.duplicates["Meni 2"]
+                        if (i != null) {
+                            Kosarica.duplicates["Meni 2"] = i + 1
+                        }
+                        else{
+                            Kosarica.duplicates["Meni 2"] = 2
+                        }
+                        Toast.makeText(this, "Meni 2 dodan v košarico", Toast.LENGTH_SHORT).show()
+                        return
+                    }
+                }
+                Kosarica.arrayList.add("Meni 2")
+                Toast.makeText(this, "Meni 2 dodan v košarico", Toast.LENGTH_SHORT).show()
+            }
+            "meni3" -> {
+                Kosarica.arrayList.forEach { str ->
+                    if (str == "Meni 3") {
+                        val i = Kosarica.duplicates["Meni 3"]
+                        if (i != null) {
+                            Kosarica.duplicates["Meni 3"] = i + 1
+                        }
+                        else{
+                            Kosarica.duplicates["Meni 3"] = 2
+                        }
+                        Toast.makeText(this, "Meni 3 dodan v košarico", Toast.LENGTH_SHORT).show()
+                        return
+                    }
+                }
+                Kosarica.arrayList.add("Meni 3")
+                Toast.makeText(this, "Meni 3 dodan v košarico", Toast.LENGTH_SHORT).show()
+            }
+            "meni4" -> {
+                Kosarica.arrayList.forEach { str ->
+                    if (str == "Meni 4") {
+                        val i = Kosarica.duplicates["Meni 4"]
+                        if (i != null) {
+                            Kosarica.duplicates["Meni 4"] = i + 1
+                        }
+                        else{
+                            Kosarica.duplicates["Meni 4"] = 2
+                        }
+                        Toast.makeText(this, "Meni 4 dodan v košarico", Toast.LENGTH_SHORT).show()
+                        return
+                    }
+                }
+                Kosarica.arrayList.add("Meni 4")
+                Toast.makeText(this, "Meni 4 dodan v košarico", Toast.LENGTH_SHORT).show()
+            }
+            "meni5" -> {
+                Kosarica.arrayList.forEach { str ->
+                    if (str == "Meni 5") {
+                        val i = Kosarica.duplicates["Meni 5"]
+                        if (i != null) {
+                            Kosarica.duplicates["Meni 5"] = i + 1
+                        }
+                        else{
+                            Kosarica.duplicates["Meni 5"] = 2
+                        }
+                        Toast.makeText(this, "Meni 5 dodan v košarico", Toast.LENGTH_SHORT).show()
+                        return
+                    }
+                }
+                Kosarica.arrayList.add("Meni 5")
+                Toast.makeText(this, "Meni 5 dodan v košarico", Toast.LENGTH_SHORT).show()
+            }
+            "meni6" -> {
+                Kosarica.arrayList.forEach { str ->
+                    if (str == "Meni 6") {
+                        val i = Kosarica.duplicates["Meni 6"]
+                        if (i != null) {
+                            Kosarica.duplicates["Meni 6"] = i + 1
+                        }
+                        else{
+                            Kosarica.duplicates["Meni 6"] = 2
+                        }
+                        Toast.makeText(this, "Meni 6 dodan v košarico", Toast.LENGTH_SHORT).show()
+                        return
+                    }
+                }
+                Kosarica.arrayList.add("Meni 6")
+                Toast.makeText(this, "Meni 6 dodan v košarico", Toast.LENGTH_SHORT).show()
+            }
         }
-        Toast.makeText(this, view.tag.toString() + " dodan v košarico", Toast.LENGTH_SHORT).show()
     }
 }

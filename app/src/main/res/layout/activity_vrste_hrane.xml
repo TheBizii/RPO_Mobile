@@ -56,6 +56,7 @@
                                 android:layout_weight="1"
                                 android:clickable="true"
                                 android:focusable="true"
+                                android:onClick="btnClickMeni"
                                 android:text="Meni 1"
                                 android:textAlignment="center"
                                 android:textSize="25sp" />
@@ -67,6 +68,7 @@
                                 android:layout_weight="1"
                                 android:clickable="true"
                                 android:focusable="true"
+                                android:onClick="btnClickMeni"
                                 android:text="Meni 2"
                                 android:textAlignment="center"
                                 android:textSize="25sp" />
@@ -85,6 +87,7 @@
                                 android:layout_weight="1"
                                 android:clickable="true"
                                 android:focusable="true"
+                                android:onClick="btnClickMeni"
                                 android:text="Meni 3"
                                 android:textAlignment="center"
                                 android:textSize="25sp" />
@@ -96,6 +99,7 @@
                                 android:layout_weight="1"
                                 android:clickable="true"
                                 android:focusable="true"
+                                android:onClick="btnClickMeni"
                                 android:text="Meni 4"
                                 android:textAlignment="center"
                                 android:textSize="25sp" />
@@ -114,6 +118,7 @@
                                 android:layout_weight="1"
                                 android:clickable="true"
                                 android:focusable="true"
+                                android:onClick="btnClickMeni"
                                 android:text="Meni 5"
                                 android:textAlignment="center"
                                 android:textSize="25sp" />
@@ -125,6 +130,7 @@
                                 android:layout_weight="1"
                                 android:clickable="true"
                                 android:focusable="true"
+                                android:onClick="btnClickMeni"
                                 android:text="Meni 6"
                                 android:textAlignment="center"
                                 android:textSize="25sp" />

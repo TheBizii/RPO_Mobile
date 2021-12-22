@@ -10,7 +10,9 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_kosara.*
 import kotlinx.android.synthetic.main.activity_kosara.bottomNavigationView
 import Kosarica
+import android.content.Context
 import android.widget.ArrayAdapter
+import android.widget.BaseAdapter
 
 class KosaraActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
@@ -68,7 +70,20 @@ class KosaraActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         listKosarica.setOnItemClickListener { parent, _, position, _ ->
-            Kosarica.arrayList.remove(parent.getItemAtPosition(position))
+            if(Kosarica.duplicates.containsKey(parent.getItemAtPosition(position))){
+                val vrednost = Kosarica.duplicates[parent.getItemAtPosition(position)]
+                if(Kosarica.duplicates[parent.getItemAtPosition(position)]!! > 1){
+                    Kosarica.duplicates[parent.getItemAtPosition(position) as String] = vrednost!! - 1
+                }
+                else{
+                    Kosarica.arrayList.remove(parent.getItemAtPosition(position))
+                    finish()
+                    startActivity(intent)
+                }
+            }
+            else{
+                Kosarica.arrayList.remove(parent.getItemAtPosition(position))
+            }
             finish();
             startActivity(intent);
         }
@@ -143,3 +158,29 @@ class KosaraActivity : AppCompatActivity() {
         item.isVisible = true
     }
 }
+
+/*class MyAdapter(private val context: Context, private val arrayList: java.util.ArrayList<string>) : BaseAdapter() {
+    private lateinit var serialNum: TextView
+    private lateinit var name: TextView
+    private lateinit var contactNum: TextView
+    override fun getCount(): Int {
+        return arrayList.size
+    }
+    override fun getItem(position: Int): Any {
+        return position
+    }
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
+        var convertView = convertView
+        convertView = LayoutInflater.from(context).inflate(R.layout.row, parent, false)
+        serialNum = convertView.findViewById(R.id.serialNumber)
+        name = convertView.findViewById(R.id.studentName)
+        contactNum = convertView.findViewById(R.id.mobileNum)
+        serialNum.text = " " + arrayList[position].num
+        name.text = arrayList[position].name
+        contactNum.text = arrayList[position].mobileNumber
+        return convertView
+    }
+}*/

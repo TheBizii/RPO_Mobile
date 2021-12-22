@@ -163,18 +163,7 @@ class PrijavaActivity : AppCompatActivity() {
             Toast.makeText(getApplicationContext(),"Vpisi uporabnisko ime",Toast.LENGTH_SHORT).show();
         }
         else {
-            /*if (!eposta.getText().toString().trim().matches(emailPattern)) {
-                Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT).show()
-            }
-            else{*/
-                postDataUsingVolley(uporabniskoIme.getText().toString(), geslo.getText().toString());
-
-                /*var sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
-                val myEdit: SharedPreferences.Editor = sharedPreferences.edit()
-
-                myEdit.putString("eposta", eposta.text.toString())
-                myEdit.apply()*/
-            //}
+            postDataUsingVolley(uporabniskoIme.getText().toString(), geslo.getText().toString());
         }
     }
 

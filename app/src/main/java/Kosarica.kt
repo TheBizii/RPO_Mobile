@@ -7,5 +7,7 @@ public class Kosarica : Application() {
         @JvmField
         var arrayList: ArrayList<String> = ArrayList()
         var duplicates: HashMap<String, Int> = HashMap()
+        var prices: HashMap<String, Double> = HashMap()
+        var skupaj: Double = 0.00
     }
 }

@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="4dp">
+
     <TextView
         android:id="@+id/izdelek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Number"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
-    <TextView
-        android:id="@+id/kolicina"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:text="Izdelek"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/cena"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mobile Number"
-        android:textColor="@color/black"
-        android:textSize="12sp"/>
-</LinearLayout>
+        android:layout_gravity="right"
+        android:text="Cena"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/kolicina" />
+
+    <TextView
+        android:id="@+id/kolicina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kolicina"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

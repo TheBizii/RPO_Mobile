@@ -192,14 +192,13 @@ class RestavracijaActivity : AppCompatActivity() {
                         if (i != null) {
                             Kosarica.duplicates["Meni 1"] = i + 1
                         }
-                        else{
-                            Kosarica.duplicates["Meni 1"] = 2
-                        }
                         Toast.makeText(this, "Meni 1 dodan v košarico", Toast.LENGTH_SHORT).show()
                         return
                     }
                 }
                 Kosarica.arrayList.add("Meni 1")
+                Kosarica.prices["Meni 1"] = 1.50
+                Kosarica.duplicates["Meni 1"] = 1
                 Toast.makeText(this, "Meni 1 dodan v košarico", Toast.LENGTH_SHORT).show()
             }
             "meni2" -> {
@@ -209,14 +208,13 @@ class RestavracijaActivity : AppCompatActivity() {
                         if (i != null) {
                             Kosarica.duplicates["Meni 2"] = i + 1
                         }
-                        else{
-                            Kosarica.duplicates["Meni 2"] = 2
-                        }
                         Toast.makeText(this, "Meni 2 dodan v košarico", Toast.LENGTH_SHORT).show()
                         return
                     }
                 }
                 Kosarica.arrayList.add("Meni 2")
+                Kosarica.prices["Meni 2"] = 2.20
+                Kosarica.duplicates["Meni 2"] = 1
                 Toast.makeText(this, "Meni 2 dodan v košarico", Toast.LENGTH_SHORT).show()
             }
             "meni3" -> {
@@ -226,14 +224,13 @@ class RestavracijaActivity : AppCompatActivity() {
                         if (i != null) {
                             Kosarica.duplicates["Meni 3"] = i + 1
                         }
-                        else{
-                            Kosarica.duplicates["Meni 3"] = 2
-                        }
                         Toast.makeText(this, "Meni 3 dodan v košarico", Toast.LENGTH_SHORT).show()
                         return
                     }
                 }
                 Kosarica.arrayList.add("Meni 3")
+                Kosarica.prices["Meni 3"] = 1.20
+                Kosarica.duplicates["Meni 3"] = 1
                 Toast.makeText(this, "Meni 3 dodan v košarico", Toast.LENGTH_SHORT).show()
             }
             "meni4" -> {
@@ -243,14 +240,13 @@ class RestavracijaActivity : AppCompatActivity() {
                         if (i != null) {
                             Kosarica.duplicates["Meni 4"] = i + 1
                         }
-                        else{
-                            Kosarica.duplicates["Meni 4"] = 2
-                        }
                         Toast.makeText(this, "Meni 4 dodan v košarico", Toast.LENGTH_SHORT).show()
                         return
                     }
                 }
                 Kosarica.arrayList.add("Meni 4")
+                Kosarica.prices["Meni 4"] = 3.66
+                Kosarica.duplicates["Meni 4"] = 1
                 Toast.makeText(this, "Meni 4 dodan v košarico", Toast.LENGTH_SHORT).show()
             }
             "meni5" -> {
@@ -260,14 +256,13 @@ class RestavracijaActivity : AppCompatActivity() {
                         if (i != null) {
                             Kosarica.duplicates["Meni 5"] = i + 1
                         }
-                        else{
-                            Kosarica.duplicates["Meni 5"] = 2
-                        }
                         Toast.makeText(this, "Meni 5 dodan v košarico", Toast.LENGTH_SHORT).show()
                         return
                     }
                 }
                 Kosarica.arrayList.add("Meni 5")
+                Kosarica.prices["Meni 5"] = 4.20
+                Kosarica.duplicates["Meni 5"] = 1
                 Toast.makeText(this, "Meni 5 dodan v košarico", Toast.LENGTH_SHORT).show()
             }
             "meni6" -> {
@@ -277,14 +272,13 @@ class RestavracijaActivity : AppCompatActivity() {
                         if (i != null) {
                             Kosarica.duplicates["Meni 6"] = i + 1
                         }
-                        else{
-                            Kosarica.duplicates["Meni 6"] = 2
-                        }
                         Toast.makeText(this, "Meni 6 dodan v košarico", Toast.LENGTH_SHORT).show()
                         return
                     }
                 }
                 Kosarica.arrayList.add("Meni 6")
+                Kosarica.prices["Meni 6"] = 0.55
+                Kosarica.duplicates["Meni 6"] = 1
                 Toast.makeText(this, "Meni 6 dodan v košarico", Toast.LENGTH_SHORT).show()
             }
         }

@@ -11,8 +11,12 @@ import kotlinx.android.synthetic.main.activity_kosara.*
 import kotlinx.android.synthetic.main.activity_kosara.bottomNavigationView
 import Kosarica
 import android.content.Context
-import android.widget.ArrayAdapter
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.TextView
+import android.widget.AdapterView.OnItemClickListener
+
 
 class KosaraActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
@@ -23,7 +27,13 @@ class KosaraActivity : AppCompatActivity() {
 
         val list = Kosarica.arrayList
 
-        listKosarica.adapter = ArrayAdapter( this, android.R.layout.simple_list_item_1, list)
+        Kosarica.skupaj = 0.0
+        for (item in Kosarica.arrayList){
+            Kosarica.skupaj += (Kosarica.prices[item]?.times(Kosarica.duplicates[item]!!))!!
+        }
+        skupajCena.text = "Skupaj: " + String.format("%.2f", Kosarica.skupaj) + "€"
+
+        listKosarica.adapter = MyAdapter(this, list, Kosarica.duplicates, Kosarica.prices)
 
         val sh = getSharedPreferences("MySharedPref", MODE_PRIVATE)
 
@@ -69,23 +79,24 @@ class KosaraActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        listKosarica.setOnItemClickListener { parent, _, position, _ ->
-            if(Kosarica.duplicates.containsKey(parent.getItemAtPosition(position))){
-                val vrednost = Kosarica.duplicates[parent.getItemAtPosition(position)]
-                if(Kosarica.duplicates[parent.getItemAtPosition(position)]!! > 1){
-                    Kosarica.duplicates[parent.getItemAtPosition(position) as String] = vrednost!! - 1
+        listKosarica.onItemClickListener = OnItemClickListener { _, _, position, _ ->
+
+            if(Kosarica.duplicates.containsKey(list[position])){
+                val vrednost = Kosarica.duplicates[list[position]]
+                if(vrednost!! > 1){
+                    Kosarica.duplicates[list[position]] = vrednost - 1
                 }
                 else{
-                    Kosarica.arrayList.remove(parent.getItemAtPosition(position))
+                    Kosarica.arrayList.remove(list[position])
                     finish()
                     startActivity(intent)
                 }
             }
             else{
-                Kosarica.arrayList.remove(parent.getItemAtPosition(position))
+                Kosarica.arrayList.remove(list[position])
             }
-            finish();
-            startActivity(intent);
+            finish()
+            startActivity(intent)
         }
 
         navView.setNavigationItemSelectedListener {
@@ -159,10 +170,15 @@ class KosaraActivity : AppCompatActivity() {
     }
 }
 
-/*class MyAdapter(private val context: Context, private val arrayList: java.util.ArrayList<string>) : BaseAdapter() {
-    private lateinit var serialNum: TextView
-    private lateinit var name: TextView
-    private lateinit var contactNum: TextView
+class MyAdapter(
+    private val context: Context,
+    private val arrayList: java.util.ArrayList<String>,
+    private val duplicates: HashMap<String, Int>,
+    private val prices: HashMap<String, Double>
+) : BaseAdapter() {
+    private lateinit var izdelek: TextView
+    private lateinit var kolicina: TextView
+    private lateinit var cena: TextView
     override fun getCount(): Int {
         return arrayList.size
     }
@@ -174,13 +190,17 @@ class KosaraActivity : AppCompatActivity() {
     }
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
         var convertView = convertView
-        convertView = LayoutInflater.from(context).inflate(R.layout.row, parent, false)
-        serialNum = convertView.findViewById(R.id.serialNumber)
-        name = convertView.findViewById(R.id.studentName)
-        contactNum = convertView.findViewById(R.id.mobileNum)
-        serialNum.text = " " + arrayList[position].num
-        name.text = arrayList[position].name
-        contactNum.text = arrayList[position].mobileNumber
+        convertView = LayoutInflater.from(context).inflate(R.layout.izdelek_v_kosari, parent, false)
+        izdelek = convertView.findViewById(R.id.izdelek)
+        kolicina = convertView.findViewById(R.id.kolicina)
+        cena = convertView.findViewById(R.id.cena)
+        izdelek.text = arrayList[position]
+        if( duplicates[arrayList[position]].toString() == "null"){
+            kolicina.text = "1";
+        }
+        else kolicina.text = duplicates[arrayList[position]].toString()
+        var cenaOut = prices[arrayList[position]]?.times(duplicates[arrayList[position]]!!)
+        cena.text = String.format("%.2f", cenaOut) + "€"
         return convertView
     }
-}*/
+}

@@ -135,7 +135,6 @@ class NastavitveActivity : AppCompatActivity() {
         val checkedItem = MojeNastavitve(this).darkMode
 
         builder.setSingleChoiceItems(styles, checkedItem) { dialog, which ->
-
             when (which) {
                 0 -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -155,7 +154,6 @@ class NastavitveActivity : AppCompatActivity() {
                     delegate.applyDayNight()
                     dialog.dismiss()
                 }
-
             }
         }
 

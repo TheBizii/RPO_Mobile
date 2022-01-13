@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    android:id="@+id/drawerLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".KosaraActivity2">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/naslov"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Košarica"
+            android:textColor="#43a047"
+            android:textSize="35sp"
+            android:textStyle="italic|bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.062"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.023" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupPlacilo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/naslov"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:text="Ob povzetju"
+                android:id="@+id/radioPovzetje"
+                android:layout_gravity="center_horizontal"
+                android:checked="true"
+                android:layout_marginTop="10dp"
+                android:textSize="25dp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Visa/MasterCard"
+                android:id="@+id/radioKartica"
+                android:layout_gravity="center_horizontal"
+                android:checked="false"
+                android:textSize="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.13" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Predračun (TRR)"
+                android:id="@+id/radioTRR"
+                android:layout_gravity="center_horizontal"
+                android:checked="false"
+                android:textSize="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.13" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/vnosPodatkovKartica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radioGroupPlacilo">
+
+            <EditText
+                android:id="@+id/imeLastnika"
+                android:layout_width="wrap_content"
+                android:layout_height="48sp"
+                android:layout_marginTop="25dp"
+                android:ems="15"
+                android:hint="Ime in priimek" />
+
+            <EditText
+                android:id="@+id/stevilkaKartice"
+                android:layout_width="wrap_content"
+                android:layout_height="48sp"
+                android:layout_marginTop="25dp"
+                android:ems="15"
+                android:maxLength="16"
+                android:inputType="number"
+                android:hint="Stevilka kartice" />
+
+            <EditText
+                android:id="@+id/datum"
+                android:layout_width="wrap_content"
+                android:layout_height="48sp"
+                android:layout_marginTop="25dp"
+                android:ems="15"
+                android:maxLength="5"
+                android:inputType="number"
+                android:hint="Datum" />
+
+            <EditText
+                android:id="@+id/cvc"
+                android:layout_width="wrap_content"
+                android:layout_height="48sp"
+                android:layout_marginTop="25dp"
+                android:ems="15"
+                android:maxLength="3"
+                android:inputType="numberPassword"
+                android:hint="CVC" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/vnosPodatkovTRR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radioGroupPlacilo">
+
+            <EditText
+                android:id="@+id/imeRacuna"
+                android:layout_width="wrap_content"
+                android:layout_height="48sp"
+                android:layout_marginTop="25dp"
+                android:ems="15"
+                android:hint="Ime in priimek" />
+
+            <EditText
+                android:id="@+id/iban"
+                android:layout_width="wrap_content"
+                android:layout_height="48sp"
+                android:layout_marginTop="25dp"
+                android:ems="15"
+                android:maxLength="23"
+                android:text="SI56 "
+                android:inputType="number"
+                android:hint="IBAN" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="btnNextClick"
+            android:text="Naprej" />
+
+        <FrameLayout
+            android:id="@+id/flFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_nav_menu"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_drawer_menu"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

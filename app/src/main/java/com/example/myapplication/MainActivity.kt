@@ -13,13 +13,11 @@ import kotlinx.android.synthetic.main.activity_main.drawerLayout
 import kotlinx.android.synthetic.main.activity_main.navView
 import Kosarica
 
-
 class MainActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
 
     private val firstFragment=MainFragment()
     private val secondFragment=SecondFragment()
-    private val activityKosara=KosaraActivity()
     private val restavracijaFragment=RestavracijaFragment()
     private val dostaveFragment=DostaveFragment()
     private val kontaktiFragment=KontaktiFragment()

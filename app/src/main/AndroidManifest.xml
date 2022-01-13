@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
-
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,17 +12,20 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".KosaraActivity2"
+            android:exported="false" />
+        <activity
             android:name=".ProfilActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".KosaraActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".NastavitveActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".PrijavaActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".VrsteHraneActivity"
             android:exported="false" />

@@ -6,37 +6,27 @@ import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
+import android.widget.EditText
+import kotlinx.android.synthetic.main.activity_kosara2.*
+import kotlinx.android.synthetic.main.activity_kosara2.bottomNavigationView
+import android.widget.RadioButton
+
+import android.widget.RadioGroup
+import androidx.core.widget.addTextChangedListener
+import android.text.Editable
+
+import android.text.TextWatcher
 import kotlinx.android.synthetic.main.activity_kosara.*
-import kotlinx.android.synthetic.main.activity_kosara.bottomNavigationView
-import Kosarica
-import android.content.Context
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.TextView
-import android.widget.AdapterView.OnItemClickListener
+import kotlinx.android.synthetic.main.activity_kosara2.buttonNext
+import kotlinx.android.synthetic.main.activity_kosara2.drawerLayout
+import kotlinx.android.synthetic.main.activity_kosara2.navView
 
-
-class KosaraActivity : AppCompatActivity() {
+class KosaraActivity2 : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kosara)
-
-        val list = Kosarica.arrayList
-
-        //buttonNext.isClickable = list.size != 0
-        buttonNext.isEnabled = list.size != 0
-
-        Kosarica.skupaj = 0.0
-        for (item in Kosarica.arrayList){
-            Kosarica.skupaj += (Kosarica.prices[item]?.times(Kosarica.duplicates[item]!!))!!
-        }
-        skupajCena.text = "Skupaj: " + String.format("%.2f", Kosarica.skupaj) + "€"
-
-        listKosarica.adapter = MyAdapter(this, list, Kosarica.duplicates, Kosarica.prices)
+        setContentView(R.layout.activity_kosara2)
 
         val sh = getSharedPreferences("MySharedPref", MODE_PRIVATE)
 
@@ -81,30 +71,6 @@ class KosaraActivity : AppCompatActivity() {
         toggle.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        listKosarica.onItemClickListener = OnItemClickListener { _, _, position, _ ->
-
-            if(Kosarica.duplicates.containsKey(list[position])){
-                val vrednost = Kosarica.duplicates[list[position]]
-                if(vrednost!! > 1){
-                    Kosarica.duplicates[list[position]] = vrednost - 1
-                }
-                else{
-                    Kosarica.arrayList.remove(list[position])
-                    finish();
-                    overridePendingTransition(0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition(0, 0);
-                }
-            }
-            else{
-                Kosarica.arrayList.remove(list[position])
-            }
-            finish();
-            overridePendingTransition(0, 0);
-            startActivity(getIntent());
-            overridePendingTransition(0, 0);
-        }
 
         navView.setNavigationItemSelectedListener {
             when(it.itemId){
@@ -156,6 +122,80 @@ class KosaraActivity : AppCompatActivity() {
             }
             true
         }
+
+
+        radioGroupPlacilo.setOnCheckedChangeListener { group, checkedId ->
+            val checkedRadioButton = group.findViewById<View>(checkedId) as RadioButton
+            if (checkedRadioButton.isChecked && checkedRadioButton.text == "Visa/MasterCard") {
+                vnosPodatkovKartica.visibility = View.VISIBLE
+                vnosPodatkovTRR.visibility = View.INVISIBLE
+
+                buttonNext.isEnabled = false
+            }
+            else if(checkedRadioButton.isChecked && checkedRadioButton.text == "Ob povzetju"){
+                vnosPodatkovKartica.visibility = View.INVISIBLE
+                vnosPodatkovTRR.visibility = View.INVISIBLE
+
+                buttonNext.isEnabled = true
+            }
+            else if(checkedRadioButton.isChecked && checkedRadioButton.text == "Predračun (TRR)"){
+                vnosPodatkovKartica.visibility = View.INVISIBLE
+                vnosPodatkovTRR.visibility = View.VISIBLE
+
+                buttonNext.isEnabled = false
+            }
+        }
+
+        cvc.addTextChangedListener{
+            buttonNext.isEnabled = preveriKartico()
+        }
+        datum.addTextChangedListener{
+            buttonNext.isEnabled = preveriKartico()
+        }
+        imeLastnika.addTextChangedListener{
+            buttonNext.isEnabled = preveriKartico()
+        }
+        stevilkaKartice.addTextChangedListener{
+            buttonNext.isEnabled = preveriKartico()
+        }
+
+        imeRacuna.addTextChangedListener{
+            buttonNext.isEnabled = preveriTRR()
+        }
+        iban.addTextChangedListener{
+            buttonNext.isEnabled = preveriTRR()
+            if(iban.text.isEmpty()){
+                iban.setText("SI56")
+            }
+        }
+
+        var pos = 0
+        val ed = findViewById<View>(R.id.datum) as EditText
+        ed.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+                if (ed.text.length == 2 && pos != 3) {
+                    ed.setText(ed.text.toString() + "/")
+                    ed.setSelection(3)
+                }
+            }
+
+            override fun beforeTextChanged(
+                arg0: CharSequence, arg1: Int, arg2: Int,
+                arg3: Int
+            ) {
+                pos = ed.text.length
+            }
+
+            override fun afterTextChanged(arg0: Editable) {}
+        })
+
+
+        iban.addTextChangedListener{
+            if(iban.text.length % 5 == 4){
+                iban.setText(iban.text.toString() + " ")
+                iban.setSelection(iban.text.length)
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -177,41 +217,30 @@ class KosaraActivity : AppCompatActivity() {
     }
 
     fun btnNextClick(view: View) {
-        val intent = Intent(this, KosaraActivity2::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
-}
 
-class MyAdapter(
-    private val context: Context,
-    private val arrayList: java.util.ArrayList<String>,
-    private val duplicates: HashMap<String, Int>,
-    private val prices: HashMap<String, Double>
-) : BaseAdapter() {
-    private lateinit var izdelek: TextView
-    private lateinit var kolicina: TextView
-    private lateinit var cena: TextView
-    override fun getCount(): Int {
-        return arrayList.size
-    }
-    override fun getItem(position: Int): Any {
-        return position
-    }
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
-        val convertView = LayoutInflater.from(context).inflate(R.layout.izdelek_v_kosari, parent, false)
-        izdelek = convertView.findViewById(R.id.izdelek)
-        kolicina = convertView.findViewById(R.id.kolicina)
-        cena = convertView.findViewById(R.id.cena)
-        izdelek.text = arrayList[position]
-        if( duplicates[arrayList[position]].toString() == "null"){
-            kolicina.text = "1";
+    private fun preveriKartico() : Boolean {
+        if(imeLastnika.text.isEmpty()) return false
+        if(stevilkaKartice.text.length != 16) return false
+        if(datum.text.length != 5) {
+            val month: String = datum.text.substring(
+                0,
+                datum.text.toString().length.coerceAtMost(1)
+            )
+            if(month.toInt() >= 12){
+                return false
+            }
         }
-        else kolicina.text = duplicates[arrayList[position]].toString()
-        var cenaOut = prices[arrayList[position]]?.times(duplicates[arrayList[position]]!!)
-        cena.text = String.format("%.2f", cenaOut) + "€"
-        return convertView
+
+        return true
+    }
+
+    private fun preveriTRR() : Boolean {
+        if(imeRacuna.length() == 0) return false
+        if(iban.length() != 23) return false
+
+        return true
     }
 }

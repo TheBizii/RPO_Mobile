@@ -43,6 +43,16 @@
             app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="btnNextClick"
+            android:text="Naprej" />
+
         <FrameLayout
             android:id="@+id/flFragment"
             android:layout_width="match_parent"

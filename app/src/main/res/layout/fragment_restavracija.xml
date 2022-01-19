@@ -44,7 +44,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:onClick="imageClickRestavracija"
-                    android:src="@drawable/mcdonalds"
+                    android:src="@drawable/nophoto"
                     android:contentDescription="mcDonalds"/>
 
                 <ImageView
@@ -56,7 +56,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:onClick="imageClickRestavracija"
-                    android:src="@drawable/burgerking"
+                    android:src="@drawable/nophoto"
                     android:contentDescription="Burger King"/>
             </LinearLayout>
 
@@ -75,7 +75,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:onClick="imageClickRestavracija"
-                    android:src="@drawable/chinese"
+                    android:src="@drawable/nophoto"
                     android:contentDescription="Chinese restaurant"/>
 
                 <ImageView
@@ -87,7 +87,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:onClick="imageClickRestavracija"
-                    android:src="@drawable/kfc"
+                    android:src="@drawable/nophoto"
                     android:contentDescription="KFC"/>
             </LinearLayout>
 
@@ -106,7 +106,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:onClick="imageClickRestavracija"
-                    android:src="@drawable/spar"
+                    android:src="@drawable/nophoto"
                     android:contentDescription="Spar restavracija"/>
 
                 <ImageView
@@ -118,7 +118,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:onClick="imageClickRestavracija"
-                    android:src="@drawable/subway"
+                    android:src="@drawable/nophoto"
                     android:contentDescription="Subway"/>
             </LinearLayout>
         </LinearLayout>

@@ -39,111 +39,64 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/mcdonalds"
+                    android:id="@+id/restavracija1"
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/mcdonalds"
+                    android:src="@drawable/nophoto"
                     android:onClick="imageClickRestavracija"
                     android:clickable="true"
                     android:focusable="true"
                     android:layout_margin="10dp"/>
 
                 <ImageView
-                    android:id="@+id/burgerking"
+                    android:id="@+id/restavracija2"
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/burgerking"
+                    android:src="@drawable/nophoto"
                     android:onClick="imageClickRestavracija"
                     android:clickable="true"
                     android:focusable="true"
                     android:layout_margin="10dp"/>
 
                 <ImageView
-                    android:id="@+id/chinese"
+                    android:id="@+id/restavracija3"
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/chinese"
+                    android:src="@drawable/nophoto"
                     android:onClick="imageClickRestavracija"
                     android:clickable="true"
                     android:focusable="true"
                     android:layout_margin="10dp"/>
 
                 <ImageView
-                    android:id="@+id/kfc"
+                    android:id="@+id/restavracija4"
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/kfc"
+                    android:src="@drawable/nophoto"
                     android:onClick="imageClickRestavracija"
                     android:clickable="true"
                     android:focusable="true"
                     android:layout_margin="10dp"/>
 
                 <ImageView
-                    android:id="@+id/spar"
+                    android:id="@+id/restavracija5"
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/spar"
+                    android:src="@drawable/nophoto"
                     android:onClick="imageClickRestavracija"
                     android:clickable="true"
                     android:focusable="true"
                     android:layout_margin="10dp"/>
 
                 <ImageView
-                    android:id="@+id/subway"
+                    android:id="@+id/restavracija6"
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/subway"
+                    android:src="@drawable/nophoto"
                     android:onClick="imageClickRestavracija"
                     android:clickable="true"
                     android:focusable="true"
                     android:layout_margin="10dp"/>
-
-
-                <!--<TextView
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="Prva restavracija"
-                    android:id="@+id/prvaRestavracija"
-                    android:textAlignment="center"
-                    android:textSize="25sp" />
-
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="Druga restavracija"
-                    android:textAlignment="center"
-                    android:textSize="25sp" />
-
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="Tretja restavracija"
-                    android:textAlignment="center"
-                    android:textSize="25sp" />
-
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="Cetrta restavracija"
-                    android:textAlignment="center"
-                    android:textSize="25sp" />
-
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="Peta restavracija"
-                    android:textAlignment="center"
-                    android:textSize="25sp" /> -->
 
             </LinearLayout>
         </HorizontalScrollView>

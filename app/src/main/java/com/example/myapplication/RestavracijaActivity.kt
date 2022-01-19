@@ -10,6 +10,14 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_restavracija.*
 import kotlinx.android.synthetic.main.activity_restavracija.bottomNavigationView
 import Kosarica
+import android.widget.ImageView
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.squareup.picasso.Picasso
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 
 class RestavracijaActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
@@ -126,9 +134,11 @@ class RestavracijaActivity : AppCompatActivity() {
         }
     }
 
-    fun setImgRes(clicked: String){
+    private fun setImgRes(clicked: String){
 
-        when(clicked){
+        postDataUsingVolley(clicked)
+
+        /*when(clicked){
             "mcdonalds" -> {
                 imgRestavracija.setImageResource(R.drawable.mcdonalds)
                 imeRestavracijeText.text = "McDonalds"
@@ -153,7 +163,7 @@ class RestavracijaActivity : AppCompatActivity() {
                 imgRestavracija.setImageResource(R.drawable.subway)
                 imeRestavracijeText.text = "Subway"
             }
-        }
+        }*/
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -282,5 +292,43 @@ class RestavracijaActivity : AppCompatActivity() {
                 Toast.makeText(this, "Meni 6 dodan v košarico", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun postDataUsingVolley(id: String) {
+        val url = "https://bolt.printeepro.com/API/shop"
+
+        val queue = Volley.newRequestQueue(this)
+
+        val req = JSONObject("{\"id\":\"${id}\"}")
+
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST, url, req,
+            { response ->
+                try {
+                    val jsonObject: JSONObject = response.getJSONObject("message")
+                    imeRestavracijeText.text = jsonObject.getString("title")
+
+                    val jsonObjectPartner: JSONObject = jsonObject.getJSONObject("partner")
+                    Picasso.with(this).load(jsonObjectPartner.getString("image").toString()).into(findViewById<ImageView>(R.id.imgRestavracija))
+
+                    val jsonObjectAddress: JSONObject = jsonObject.getJSONObject("address")
+                    txtNaslov.text = jsonObjectAddress.getString("address")
+
+
+
+                } catch (e: JSONException) {
+                    Toast.makeText(this, response.getString("error"), Toast.LENGTH_SHORT).show()
+                    e.printStackTrace()
+                }
+            },
+            { error ->
+                Toast.makeText(
+                    this,
+                    "Fail to get response = $error",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        )
+        queue.add(jsonObjectRequest)
     }
 }

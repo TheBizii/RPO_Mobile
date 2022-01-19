@@ -163,7 +163,7 @@ class PrijavaActivity : AppCompatActivity() {
             Toast.makeText(getApplicationContext(),"Vpisi uporabnisko ime",Toast.LENGTH_SHORT).show();
         }
         else {
-            postDataUsingVolley(uporabniskoIme.getText().toString(), geslo.getText().toString());
+            postDataUsingVolley(uporabniskoIme.text.toString(), geslo.text.toString());
         }
     }
 

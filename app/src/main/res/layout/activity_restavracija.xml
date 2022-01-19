@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:layout_margin="10dp"
-                    android:src="@drawable/mcdonalds"
+                    android:src="@drawable/nophoto"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imeRestavracijeText" />
 
@@ -56,11 +56,11 @@
                     app:layout_constraintTop_toBottomOf="@+id/imgRestavracija" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/txtNaslov"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Čas obratovanja"
+                    android:text=""
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"

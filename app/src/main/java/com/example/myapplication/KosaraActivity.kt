@@ -27,7 +27,6 @@ class KosaraActivity : AppCompatActivity() {
 
         val list = Kosarica.arrayList
 
-        //buttonNext.isClickable = list.size != 0
         buttonNext.isEnabled = list.size != 0
 
         Kosarica.skupaj = 0.0
